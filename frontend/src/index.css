@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Noto Sans KR", "Segoe UI", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply m-0 font-sans antialiased;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+}
+
+@layer components {
+  .tailwind-calendar .fc-toolbar,
+  .tailwind-calendar .fc-header-toolbar {
+    display: none;
+  }
+
+  .tailwind-calendar {
+    --fc-page-bg-color: transparent;
+    --fc-border-color: rgb(148 163 184 / 0.58);
+    --fc-neutral-bg-color: rgb(148 163 184 / 0.1);
+  }
+
+  .dark .tailwind-calendar,
+  .tailwind-calendar.calendar-dark {
+    --fc-page-bg-color: rgb(15 23 42 / 0.9);
+    --fc-border-color: rgb(71 85 105 / 0.8);
+    --fc-neutral-bg-color: rgb(51 65 85 / 0.45);
+  }
+
+  .tailwind-calendar .fc-theme-standard td,
+  .tailwind-calendar .fc-theme-standard th {
+    border-color: var(--fc-border-color);
+    background: transparent;
+  }
+
+  .tailwind-calendar .fc-col-header-cell {
+    background-color: rgb(241 245 249 / 0.9);
+  }
+
+  .tailwind-calendar .fc-col-header-cell-cushion {
+    color: rgb(71 85 105);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.7rem 0.2rem;
+    text-decoration: none;
+  }
+
+  .tailwind-calendar .fc-day-sun .fc-col-header-cell-cushion {
+    color: rgb(225 29 72);
+  }
+
+  .tailwind-calendar .fc-day-sat .fc-col-header-cell-cushion {
+    color: rgb(37 99 235);
+  }
+
+  .tailwind-calendar .fc-daygrid-day {
+    background-color: rgb(248 250 252 / 0.76);
+  }
+
+  .tailwind-calendar .fc-daygrid-day-number {
+    color: rgb(51 65 85);
+    font-weight: 600;
+    padding: 0.45rem;
+    text-decoration: none;
+  }
+
+  .tailwind-calendar .fc-daygrid-day.fc-day-today {
+    background-color: rgb(20 184 166 / 0.2);
+  }
+
+  /* Dark mode: force header cell structure background
+     <th class="fc-col-header-cell"><div class="fc-scrollgrid-sync-inner"><a ... */
+  .dark .tailwind-calendar .fc-col-header,
+  .tailwind-calendar.calendar-dark .fc-col-header,
+  .dark .tailwind-calendar .fc-col-header table,
+  .tailwind-calendar.calendar-dark .fc-col-header table,
+  .dark .tailwind-calendar .fc-col-header thead,
+  .tailwind-calendar.calendar-dark .fc-col-header thead,
+  .dark .tailwind-calendar .fc-col-header tr,
+  .tailwind-calendar.calendar-dark .fc-col-header tr,
+  .dark .tailwind-calendar th.fc-col-header-cell,
+  .tailwind-calendar.calendar-dark th.fc-col-header-cell,
+  .dark .tailwind-calendar th.fc-col-header-cell > .fc-scrollgrid-sync-inner,
+  .tailwind-calendar.calendar-dark th.fc-col-header-cell > .fc-scrollgrid-sync-inner,
+  .dark .tailwind-calendar .fc-scrollgrid-section-header > *,
+  .tailwind-calendar.calendar-dark .fc-scrollgrid-section-header > * {
+    background-color: rgb(15 23 42 / 0.9) !important;
+  }
+
+  .dark .tailwind-calendar .fc-col-header-cell-cushion,
+  .tailwind-calendar.calendar-dark .fc-col-header-cell-cushion {
+    color: rgb(148 163 184);
+  }
+
+  .dark .tailwind-calendar .fc-day-sun .fc-col-header-cell-cushion,
+  .tailwind-calendar.calendar-dark .fc-day-sun .fc-col-header-cell-cushion {
+    color: rgb(251 113 133);
+  }
+
+  .dark .tailwind-calendar .fc-day-sat .fc-col-header-cell-cushion,
+  .tailwind-calendar.calendar-dark .fc-day-sat .fc-col-header-cell-cushion {
+    color: rgb(96 165 250);
+  }
+
+  .dark .tailwind-calendar .fc-daygrid-day,
+  .tailwind-calendar.calendar-dark .fc-daygrid-day {
+    background-color: rgb(15 23 42 / 0.62);
+  }
+
+  .dark .tailwind-calendar .fc-daygrid-day-number,
+  .tailwind-calendar.calendar-dark .fc-daygrid-day-number {
+    color: rgb(226 232 240);
+  }
+
+  .dark .tailwind-calendar .fc-daygrid-day.fc-day-today,
+  .tailwind-calendar.calendar-dark .fc-daygrid-day.fc-day-today {
+    background-color: rgb(45 212 191 / 0.24);
+  }
+
+  .tailwind-calendar .fc-daygrid-event {
+    background: linear-gradient(135deg, rgb(6 182 212), rgb(20 184 166));
+    border: 0;
+    border-radius: 0.6rem;
+    box-shadow: 0 8px 18px rgb(20 184 166 / 0.25);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.45rem;
+  }
+
+  /* Re-apply global fallback for dark mode header cells */
+  html.dark .fc .fc-scrollgrid-section-header,
+  html.dark .fc .fc-scrollgrid-section-header *,
+  html.dark .fc th.fc-col-header-cell,
+  html.dark .fc th.fc-col-header-cell > .fc-scrollgrid-sync-inner {
+    background-color: rgb(15 23 42 / 0.9) !important;
+  }
+
+  html.dark .fc .fc-col-header-cell-cushion {
+    color: rgb(148 163 184) !important;
+  }
+
+  html.dark .fc .fc-day-sun .fc-col-header-cell-cushion {
+    color: rgb(251 113 133) !important;
+  }
+
+  html.dark .fc .fc-day-sat .fc-col-header-cell-cushion {
+    color: rgb(96 165 250) !important;
+  }
+}
