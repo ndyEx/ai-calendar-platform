@@ -1,12 +1,12 @@
 // ----------------------------------------------------------------------
 // React에서 제공하는 핵심 기능(Hooks)들을 불러옵니다.
-// ----------------------------------------------------------------------
 import { useEffect, useState } from 'react';
 import { getInitialTheme } from './utils/theme';
 import { THEME_KEY } from './config/constants';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import DashboardPage from './pages/DashboardPage';
+import CalendarPage from './pages/CalendarPage';
 
 // ----------------------------------------------------------------------
 // App 컴포넌트: 화면에 그려질 UI와 동작 로직을 결합한 메인 함수입니다.
@@ -20,7 +20,7 @@ function App() {
   });
 
   const [theme, setTheme] = useState(getInitialTheme);
-  const [activeMenu, setActiveMenu] = useState('calendar');
+  const [activeMenu, setActiveMenu] = useState('dashboard');
 
   useEffect(() => {
     const root = document.documentElement;
@@ -28,6 +28,23 @@ function App() {
     root.style.colorScheme = theme;
     window.localStorage.setItem(THEME_KEY, theme);
   }, [theme]);
+
+  // 현재 선택된 메뉴에 따라 알맞은 페이지(화면)를 반환하는 함수
+  const renderContent = () => {
+    switch (activeMenu) {
+      case 'dashboard':
+        return <DashboardPage theme={theme} />;
+      case 'calendar':
+        return <CalendarPage theme={theme} />;
+      default:
+        // 'team', 'analytics', 'settings' 등 아직 구현되지 않은 페이지들에 대한 임시 처리
+        return (
+          <div className="flex h-64 items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-slate-50 text-slate-500 dark:border-slate-700 dark:bg-slate-900/50">
+            <p>이 화면은 아직 준비 중입니다. ({activeMenu})</p>
+          </div>
+        );
+    }
+  };
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-50 text-slate-800 transition-colors duration-500 dark:bg-slate-950 dark:text-slate-100 selection:bg-teal-500/30">
@@ -56,12 +73,10 @@ function App() {
         <main>
           <Header
             activeMenu={activeMenu}
-            isSidebarOpen={isSidebarOpen}
-            setIsSidebarOpen={setIsSidebarOpen}
             theme={theme}
             setTheme={setTheme}
           />
-          <DashboardPage theme={theme} />
+          {renderContent()}
         </main>
       </div>
     </div>

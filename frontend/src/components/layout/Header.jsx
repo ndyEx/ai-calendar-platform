@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { menuItems } from '../../config/constants';
 
-export default function Header({ activeMenu, isSidebarOpen, setIsSidebarOpen, theme, setTheme }) {
+export default function Header({ activeMenu, theme, setTheme }) {
     const activeMenuLabel = useMemo(
         () => menuItems.find((item) => item.key === activeMenu)?.label ?? '캘린더',
         [activeMenu],
@@ -19,13 +19,6 @@ export default function Header({ activeMenu, isSidebarOpen, setIsSidebarOpen, th
             <div className="flex items-center gap-3">
                 <button
                     className="rounded-xl border border-slate-200/60 bg-white/50 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-md transition-all hover:bg-slate-100 hover:text-slate-900 active:scale-95 dark:border-white/10 dark:bg-slate-800/50 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white"
-                    onClick={() => setIsSidebarOpen((prev) => !prev)}
-                    type="button"
-                >
-                    {isSidebarOpen ? '사이드바 접기' : '사이드바 펼치기'}
-                </button>
-                <button
-                    className="rounded-xl border border-slate-200/60 bg-white/50 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-md transition-all hover:bg-slate-100 hover:text-slate-900 active:scale-95 dark:border-white/10 dark:bg-slate-800/50 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white"
                     onClick={() => setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'))}
                     type="button"
                 >
@@ -37,7 +30,7 @@ export default function Header({ activeMenu, isSidebarOpen, setIsSidebarOpen, th
                 >
                     공유
                 </button>
-                
+
                 {/* Premium Primary Action Button */}
                 <div className="relative group">
                     <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-teal-400 to-sky-400 opacity-50 blur transition duration-300 group-hover:opacity-100 dark:from-teal-500 dark:to-cyan-500"></div>

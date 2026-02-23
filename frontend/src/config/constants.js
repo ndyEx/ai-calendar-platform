@@ -8,14 +8,6 @@ export const menuItems = [
     { key: 'settings', label: '설정' },
 ];
 
-export const demoEvents = [
-    { title: '프로젝트 킥오프', date: '2026-02-17' },
-    { title: '디자인 리뷰', date: '2026-02-21' },
-    { title: 'AI 세미나', date: '2026-02-25' },
-    { title: '스프린트 회고', date: '2026-02-28' },
-    { title: '신규 기능 출시', date: '2026-03-03' },
-];
-
 export const summaryCards = [
     { label: '이번 주 일정', value: '12개' },
     { label: '완료율', value: '84%' },
