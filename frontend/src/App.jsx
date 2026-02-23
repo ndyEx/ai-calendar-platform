@@ -30,11 +30,14 @@ function App() {
   }, [theme]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-100 text-slate-800 transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 left-0 h-72 w-72 rounded-full bg-teal-300/24 blur-3xl dark:bg-teal-400/20" />
-        <div className="absolute -top-20 right-0 h-80 w-80 rounded-full bg-sky-300/20 blur-3xl dark:bg-sky-500/20" />
-        <div className="absolute bottom-10 left-1/4 h-56 w-56 rounded-full bg-cyan-200/16 blur-3xl dark:bg-cyan-400/10" />
+    <div className="relative min-h-screen overflow-hidden bg-slate-50 text-slate-800 transition-colors duration-500 dark:bg-slate-950 dark:text-slate-100 selection:bg-teal-500/30">
+      {/* Background Orbs with Animation */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-teal-300/20 blur-[100px] transition-all duration-1000 dark:bg-teal-500/15 animate-pulse" style={{ animationDuration: '8s' }} />
+        <div className="absolute top-1/2 -right-40 h-[30rem] w-[30rem] -translate-y-1/2 rounded-full bg-sky-300/20 blur-[120px] transition-all duration-1000 dark:bg-sky-500/10 animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }} />
+        <div className="absolute -bottom-32 left-1/3 h-80 w-80 rounded-full bg-indigo-300/20 blur-[100px] transition-all duration-1000 dark:bg-indigo-500/10 animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }} />
+        {/* Fine Noise Texture Overlay for premium feel (Subtle) */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.03%22/%3E%3C/svg%3E')] mix-blend-overlay pointer-events-none"></div>
       </div>
 
       <div

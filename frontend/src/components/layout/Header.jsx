@@ -8,41 +8,46 @@ export default function Header({ activeMenu, isSidebarOpen, setIsSidebarOpen, th
     );
 
     return (
-        <header className="mb-7 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-300/75 bg-white/72 px-4 py-3 shadow-sm backdrop-blur-xl transition-colors dark:border-slate-700/70 dark:bg-slate-900/65">
+        <header className="mb-8 flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-slate-200/80 bg-white/60 px-5 py-4 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-2xl transition-all duration-300 dark:border-white/10 dark:bg-slate-900/60 dark:shadow-[0_8px_30px_rgb(0,0,0,0.3)]">
             <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-teal-600 dark:text-teal-400">
                     AI Calendar
                 </p>
-                <h1 className="text-2xl font-extrabold">{activeMenuLabel}</h1>
+                <h1 className="mt-0.5 text-2xl font-extrabold tracking-tight">{activeMenuLabel}</h1>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
                 <button
-                    className="rounded-xl border border-slate-300 bg-white/85 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+                    className="rounded-xl border border-slate-200/60 bg-white/50 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-md transition-all hover:bg-slate-100 hover:text-slate-900 active:scale-95 dark:border-white/10 dark:bg-slate-800/50 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white"
                     onClick={() => setIsSidebarOpen((prev) => !prev)}
                     type="button"
                 >
                     {isSidebarOpen ? '사이드바 접기' : '사이드바 펼치기'}
                 </button>
                 <button
-                    className="rounded-xl border border-slate-300 bg-white/85 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+                    className="rounded-xl border border-slate-200/60 bg-white/50 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-md transition-all hover:bg-slate-100 hover:text-slate-900 active:scale-95 dark:border-white/10 dark:bg-slate-800/50 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white"
                     onClick={() => setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'))}
                     type="button"
                 >
-                    {theme === 'dark' ? '라이트 모드' : '다크 모드'}
+                    {theme === 'dark' ? '☀️ 라이트 모드' : '🌙 다크 모드'}
                 </button>
                 <button
-                    className="rounded-xl border border-slate-300 bg-white/85 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+                    className="rounded-xl border border-slate-200/60 bg-white/50 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm backdrop-blur-md transition-all hover:bg-slate-100 hover:text-slate-900 active:scale-95 dark:border-white/10 dark:bg-slate-800/50 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-white"
                     type="button"
                 >
                     공유
                 </button>
-                <button
-                    className="rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-105"
-                    type="button"
-                >
-                    + 새 일정
-                </button>
+                
+                {/* Premium Primary Action Button */}
+                <div className="relative group">
+                    <div className="absolute -inset-0.5 rounded-xl bg-gradient-to-r from-teal-400 to-sky-400 opacity-50 blur transition duration-300 group-hover:opacity-100 dark:from-teal-500 dark:to-cyan-500"></div>
+                    <button
+                        className="relative rounded-xl bg-slate-900 px-5 py-2 text-sm font-bold text-white shadow-md transition-all duration-300 hover:scale-[1.02] active:scale-95 dark:bg-slate-800 dark:hover:text-cyan-300"
+                        type="button"
+                    >
+                        + 새 일정
+                    </button>
+                </div>
             </div>
         </header>
     );

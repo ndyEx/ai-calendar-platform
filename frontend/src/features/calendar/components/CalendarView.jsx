@@ -5,19 +5,22 @@ import { getWeekendColor, getDateColor } from '../../../utils/colors';
 
 export default function CalendarView({ theme }) {
     return (
-        <article className="rounded-3xl border border-slate-300/75 bg-white/80 p-4 shadow-sm transition-colors dark:border-slate-700/70 dark:bg-slate-900/85 sm:p-6">
-            <div className="mb-4 flex items-center justify-between">
+        <article className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/60 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-3xl transition-all duration-300 dark:border-white/10 dark:bg-slate-900/60 dark:shadow-[0_8px_30px_rgb(0,0,0,0.3)] sm:p-7">
+            {/* Subtle glow behind calendar */}
+            <div className="absolute -left-32 -top-32 h-64 w-64 rounded-full bg-cyan-400/5 blur-[100px] pointer-events-none dark:bg-cyan-500/5"></div>
+            
+            <div className="relative z-10 mb-6 flex items-end justify-between">
                 <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
+                    <p className="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
                         Calendar View
                     </p>
-                    <h3 className="text-lg font-bold">이번 달 일정</h3>
+                    <h3 className="mt-0.5 text-xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100">이번 달 일정</h3>
                 </div>
-                <div className="hidden rounded-xl border border-slate-300 bg-slate-100 p-1 dark:border-slate-700 dark:bg-slate-800/70 sm:flex">
-                    <button className="rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-500 dark:text-slate-300" type="button">
+                <div className="hidden rounded-xl bg-slate-200/50 p-1 backdrop-blur-md dark:bg-slate-800/50 sm:flex shadow-inner">
+                    <button className="rounded-lg px-4 py-1.5 text-xs font-bold text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100" type="button">
                         주간
                     </button>
-                    <button className="rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100" type="button">
+                    <button className="rounded-lg bg-white px-4 py-1.5 text-xs font-bold text-slate-800 shadow-sm transition-all dark:bg-slate-700 dark:text-white" type="button">
                         월간
                     </button>
                 </div>
