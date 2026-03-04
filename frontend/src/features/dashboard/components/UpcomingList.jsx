@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../../api/axios';
 
 export default function UpcomingList() {
     const [upcomingEvents, setUpcomingEvents] = useState([]);
@@ -7,7 +7,7 @@ export default function UpcomingList() {
     useEffect(() => {
         const fetchUpcomingEvents = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/events');
+                const response = await api.get('/api/events');
                 const events = response.data;
                 const sorted = events
                     .sort((a, b) => new Date(a.start_time) - new Date(b.start_time))

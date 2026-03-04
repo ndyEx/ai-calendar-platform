@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../../api/axios';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -14,7 +14,7 @@ export default function CalendarView({ theme, height = "auto" }) {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/events');
+                const response = await api.get('/api/events');
                 const formattedEvents = response.data.map(event => ({
                     id: String(event.id),
                     title: event.title,
@@ -38,7 +38,7 @@ export default function CalendarView({ theme, height = "auto" }) {
 
     const handleSaveEvent = async (formData) => {
         try {
-            const response = await axios.post('http://localhost:3000/api/events', formData);
+            const response = await api.post('/api/events', formData);
             if (response.status === 201) {
                 setEvents((prevEvents) => [
                     ...prevEvents,

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../../api/axios';
 import { summaryCards } from '../../../config/constants';
 
 export default function SummaryCards() {
@@ -8,7 +8,7 @@ export default function SummaryCards() {
     useEffect(() => {
         const fetchNextEvent = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/events');
+                const response = await api.get('/api/events');
                 const events = response.data;
                 if (events.length > 0) {
                     // Sort by start_time ascending and get the first future/closest event
