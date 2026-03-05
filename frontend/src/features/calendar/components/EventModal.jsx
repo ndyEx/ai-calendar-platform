@@ -1,6 +1,20 @@
 import { useState, useEffect } from 'react';
 
-export default function EventModal({ isOpen, onClose, selectedDate, onSave }) {
+export default function EventModal({ isOpen, onClose, selectedDate, onSave, eventToEdit }) {
+    const isEditMode = !!eventToEdit;
+
+    // 모달창 ESC 닫기 허용
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape' && isOpen) {
+                onClose();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen, onClose]);
+
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -10,18 +24,47 @@ export default function EventModal({ isOpen, onClose, selectedDate, onSave }) {
     });
 
     useEffect(() => {
-        if (isOpen && selectedDate) {
-            // Set default start and end times based on the clicked date
-            // Assuming selectedDate is a YYYY-MM-DD string
-            setFormData({
-                title: '',
-                description: '',
-                start_time: `${selectedDate}T09:00`,
-                end_time: `${selectedDate}T10:00`,
-                category: '일반'
-            });
+        if (isOpen) {
+            if (isEditMode && eventToEdit) {
+                // Formatting datetime-local requires YYYY-MM-DDThh:mm format
+                const formatForInput = (dateString) => {
+                    if (!dateString) return '';
+                    // Create Date object, handling timezone correctly
+                    const date = new Date(dateString);
+                    // Subtract timezone offset to get local time string in correct format
+                    const tzOffset = date.getTimezoneOffset() * 60000; // offset in milliseconds
+                    const localISOTime = (new Date(date - tzOffset)).toISOString().slice(0, 16);
+                    return localISOTime;
+                };
+
+                setFormData({
+                    title: eventToEdit.title || '',
+                    description: eventToEdit.description || '',
+                    start_time: formatForInput(eventToEdit.start),
+                    end_time: formatForInput(eventToEdit.end),
+                    category: eventToEdit.category || '일반'
+                });
+            } else if (selectedDate) {
+                // Create mode with selected date
+                setFormData({
+                    title: '',
+                    description: '',
+                    start_time: `${selectedDate}T09:00`,
+                    end_time: `${selectedDate}T10:00`,
+                    category: '일반'
+                });
+            } else {
+                // Fallback reset
+                setFormData({
+                    title: '',
+                    description: '',
+                    start_time: '',
+                    end_time: '',
+                    category: '일반'
+                });
+            }
         }
-    }, [isOpen, selectedDate]);
+    }, [isOpen, selectedDate, eventToEdit, isEditMode]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,8 +82,12 @@ export default function EventModal({ isOpen, onClose, selectedDate, onSave }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm transition-opacity">
             <div className="w-full max-w-md overflow-hidden rounded-3xl border border-white/20 bg-white/70 shadow-2xl backdrop-blur-2xl dark:border-white/10 dark:bg-slate-900/80">
                 <div className="border-b border-slate-200/50 bg-white/50 px-6 py-4 dark:border-white/5 dark:bg-slate-800/50">
-                    <h2 className="text-xl font-extrabold text-slate-800 dark:text-slate-100">새 일정 추가</h2>
-                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">캘린더에 새로운 이벤트를 등록합니다.</p>
+                    <h2 className="text-xl font-extrabold text-slate-800 dark:text-slate-100">
+                        {isEditMode ? '일정 수정' : '새 일정 추가'}
+                    </h2>
+                    <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                        {isEditMode ? '선택한 일정의 정보를 수정합니다.' : '캘린더에 새로운 이벤트를 등록합니다.'}
+                    </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="p-6">
@@ -124,7 +171,7 @@ export default function EventModal({ isOpen, onClose, selectedDate, onSave }) {
                             type="submit"
                             className="rounded-xl bg-gradient-to-r from-teal-500 to-cyan-500 px-5 py-2 text-sm font-bold text-white shadow-md transition hover:scale-[1.02] active:scale-95"
                         >
-                            저장하기
+                            {isEditMode ? '수정하기' : '저장하기'}
                         </button>
                     </div>
                 </form>

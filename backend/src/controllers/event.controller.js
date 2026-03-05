@@ -24,7 +24,29 @@ const createEvent = async (req, res) => {
     }
 };
 
+const updateEvent = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, description, start_time, end_time, category } = req.body;
+
+        if (!title || !start_time || !end_time) {
+            return res.status(400).json({ error: "Missing required fields: title, start_time, end_time" });
+        }
+
+        const affectedRows = await eventModel.updateEvent(id, { title, description, start_time, end_time, category });
+        
+        if (affectedRows === 0) {
+            return res.status(404).json({ error: "Event not found" });
+        }
+
+        res.status(200).json({ message: "Event updated successfully", id });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 module.exports = {
     getEvents,
-    createEvent
+    createEvent,
+    updateEvent
 };

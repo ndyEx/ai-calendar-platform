@@ -15,7 +15,19 @@ const insertEvent = async (eventData) => {
     return result.insertId;
 };
 
+const updateEvent = async (id, eventData) => {
+    const { title, description, start_time, end_time, category } = eventData;
+    const [result] = await pool.query(
+        `UPDATE events 
+         SET title = ?, description = ?, start_time = ?, end_time = ?, category = ?
+         WHERE id = ?`,
+        [title, description || null, start_time, end_time, category || '일반', id]
+    );
+    return result.affectedRows;
+};
+
 module.exports = {
     getAllEvents,
-    insertEvent
+    insertEvent,
+    updateEvent
 };
